@@ -3,9 +3,11 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { BsGlobe2 } from "react-icons/bs";
 import { BsShield } from "react-icons/bs";
 import { BsWifi } from "react-icons/bs";
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const citiesInCountry = async (countryName) => {
+
+
     try {
         const result = await prisma.country.findUnique({
             where: {
@@ -24,20 +26,17 @@ const citiesInCountry = async (countryName) => {
 };
 
 export default async function countryGuide({ params }: { params: { country: string } }) {
-
     const country_name = params.country
 
     const data = await citiesInCountry(country_name);
-    console.log("it worked!!!")
     const cities = data?.city
-    console.log({ cities })
 
 
     return (
         <div className="container is-max-widescreen">
             <div className="title">{data?.name}</div>
-            <p><BsCurrencyDollar /> {data?.cost}/mo  <BsGlobe2 /> Visa required: {data?.visa ? "Yes" : "No"} 
-            <BsWifi /> Wifi: 98 m/b <BsShield /> safety 4/5
+            <p><BsCurrencyDollar /> {data?.cost}/mo  <BsGlobe2 /> Visa required: {data?.visa ? "Yes" : "No"}
+                <BsWifi /> Wifi: 98 m/b <BsShield /> safety 4/5
             </p>
             <div className="columns">
                 <div className="column is-two-thirds">
@@ -58,14 +57,16 @@ export default async function countryGuide({ params }: { params: { country: stri
                 <div className="columns is-multiline">
                     {cities?.map((city) => (
                         <div className='column is-one-quarter'>
-                            <div className='card'>
-                                <div className='card-image'>
-                                    <img className='round-edges' src={city.image} />
+                            <Link href={`/${country_name}/${city?.name}`} className="has-text-black">
+                                <div className='card'>
+                                    <div className='card-image'>
+                                        <img className='round-edges' src={city?.image} />
+                                    </div>
+                                    <div className="card-content is-overlay has-text-white has-text-weight-bold has-text-outline is-size-3">
+                                        {city?.name}
+                                    </div>
                                 </div>
-                                <div className="card-content is-overlay has-text-white has-text-weight-bold has-text-outline is-size-3">
-                                    {city.name}
-                                </div>
-                            </div>
+                            </Link>
                         </div>
                     ))
                     }
