@@ -62,7 +62,7 @@ export default async function countryGuide({ params }: { params: { country: stri
                                 <div className='card-image'>
                                     <img className='round-edges' src={city.image} />
                                 </div>
-                                <div className="card-content is-overlay">
+                                <div className="card-content is-overlay has-text-white has-text-weight-bold has-text-outline is-size-3">
                                     {city.name}
                                 </div>
                             </div>
