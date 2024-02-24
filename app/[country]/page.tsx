@@ -35,23 +35,29 @@ export default async function countryGuide({ params }: { params: { country: stri
     return (
         <div className="container is-max-widescreen">
             <div className="title">{data?.name}</div>
-            <p><BsCurrencyDollar /> {data?.cost}/mo  <BsGlobe2 /> Visa required: {data?.visa ? "Yes" : "No"}
-                <BsWifi /> Wifi: 98 m/b <BsShield /> safety 4/5
-            </p>
-            <div className="columns">
-                <div className="column is-two-thirds">
-                    <figure className="image ">
-                        <img className="radius-large round-edges" src={data?.image} />
-                    </figure>
+           
+            <div className="section">
 
-                </div>
-                <div className="column">
-                    <h1 className="title"> great info about the country</h1>
-                    <p>
-                        Megacity Tokyo fully engages the senses with its mix of modern bustle and traditional tranquility. But before jetting off to Kyoto or further afield, allow yourself to discover Kanto's hot spring resorts, unspoiled mountain gorges, pristine beaches, UNESCO World Heritage sites and cultural treasures. The diverse port city of Yokohama and the immersive nature of Gunma, Saitama and Ibaraki are right on Tokyo's doorstep. The volcanic Ogasawara Islands offer a subtropical getaway with endemic wildlife and clear water. Kanto's culinary options are as varied as the landscape—restaurants serving cuisine from every corner of the globe abound at every price point
-                    </p>
-                </div>
+                <figure className="image ">
+                    <img className="radius-large round-edges" src={data?.image} />
+                </figure>
+                <nav className="level is-mobile">
+                <div className="level-left" ><BsCurrencyDollar />{data?.cost}/mo</div>
+                <div className="level-right" > <BsWifi /> Wifi: 98 m/b </div>
+                </nav>
             </div>
+            <div className="section">
+            <p>  <BsGlobe2 /> Visa required: {data?.visa ? "Yes" : "No"}</p>
+                <p> <BsShield /> safety 4/5 </p>
+            
+            </div>
+            <div className="section">
+                <h1 className="title"> great info about the country</h1>
+                <p>
+                    Megacity Tokyo fully engages the senses with its mix of modern bustle and traditional tranquility. But before jetting off to Kyoto or further afield, allow yourself to discover Kanto's hot spring resorts, unspoiled mountain gorges, pristine beaches, UNESCO World Heritage sites and cultural treasures. The diverse port city of Yokohama and the immersive nature of Gunma, Saitama and Ibaraki are right on Tokyo's doorstep. The volcanic Ogasawara Islands offer a subtropical getaway with endemic wildlife and clear water. Kanto's culinary options are as varied as the landscape—restaurants serving cuisine from every corner of the globe abound at every price point
+                </p>
+            </div>
+
             <div className="section">
                 <div className='title'> country cities</div>
                 <div className="columns is-multiline">
