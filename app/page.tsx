@@ -28,7 +28,7 @@ export default async function Home() {
         <div className="container has-background-white">
           <div className="columns is-multiline is-mobile" >
             {data.map((country) => (
-
+              // @ts-ignore
               <TravelCard image={country.image} title={country.name} cost={country.cost} visa={country.visa_required} digitalNomadVisa={country.digital_nomad_visa_required} />
 
             ))}

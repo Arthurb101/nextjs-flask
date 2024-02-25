@@ -1,11 +1,19 @@
+import React from 'react'
 import { BsCurrencyDollar } from "react-icons/bs";
 import { BsGlobe2 } from "react-icons/bs";
 import { BsShield } from "react-icons/bs";
 import { BsWifi } from "react-icons/bs";
 import Link from 'next/link'
 
+interface TravelCardProps {
+  image: string;
+  title: string;
+  cost: number;
+  visa: boolean;
+}
 
-export default function TravelCard({ image, title, cost, visa, digitalNomadVisa }) {
+
+const TravelCard: React.FC<TravelCardProps> = ({ image, title, cost, visa }) => {
   return (
     <div className="column p-2 is-half-mobile is-one-quarter-desktop is-one-quarter-tablet is-one-quarter-widescreen">
       <div className="card m-2"  >
@@ -38,3 +46,5 @@ export default function TravelCard({ image, title, cost, visa, digitalNomadVisa 
 
   )
 }
+
+export default TravelCard;

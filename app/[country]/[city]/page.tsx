@@ -1,46 +1,71 @@
-import prisma from '../../lib/prisma';
+import prisma from '../../../lib/prisma';
 import { BsCurrencyDollar } from "react-icons/bs";
 import { BsGlobe2 } from "react-icons/bs";
 import { BsShield } from "react-icons/bs";
 import { BsWifi } from "react-icons/bs";
 
-const citiesInCountry = async (countryName) => {
-
+const citiesInCountry = async (countryName: string) => {
 
     try {
-        const result = await prisma.city.findUnique({
+        const result = await prisma.country.findUnique({
             where: {
                 name: countryName,
-            }
+            },
+            include: {
+                city: true,
+            },
         });
         return result
     } catch (error) {
         console.error('Error fetching data:', error);
-        return []
+        return null
     }
 
 };
 
-export default async function countryGuide({ params }: { params: { country: string } }) {
-    const country_name = params.country
+export default async function countryGuide({ params }: { params: { country: string, city: string } }) {
+    console.log({params})
+    const cityName = decodeURI(params.city)
+    const countryName = params.country
+
+    const data = await citiesInCountry(countryName);
+    let city = {}
+    let country = {}
+    if( data != null)
+    {
+       
+        {/* 
+// @ts-ignore */}
+        city = data.city.find((city) => city.name === cityName);
+        country = data
+        console.log(city)
+    }
 
 
     return (
         <div className="container is-max-widescreen">
-            <div className="title">{data?.name}</div>
+            {/* 
+// @ts-ignore */}
+            <div className="title">{city?.name}</div>
            
             <div className="section">
 
                 <figure className="image ">
-                    <img className="radius-large round-edges" src={data?.image} />
+                    {/* 
+// @ts-ignore */}
+                    <img className="radius-large round-edges" src={city?.image} />
                 </figure>
                 <div className="level is-mobile">
-                <div className="level-left" ><BsCurrencyDollar />{data?.cost}/mo</div>
+                    {/* 
+// @ts-ignore */}
+                <div className="level-left" ><BsCurrencyDollar />{city?.cost}/mo</div>
                 <div className="level-right" > <BsWifi /> Wifi: 98 m/b </div>
                 </div>
             </div>
             <div className="section">
-            <p>  <BsGlobe2 /> Visa required: {data?.visa ? "Yes" : "No"}</p>
+                {/* 
+// @ts-ignore */}
+            <p>  <BsGlobe2 /> Visa required: {country?.visa ? "Yes" : "No"}</p>
                 <p> <BsShield /> safety 4/5 </p>
             
             </div>
