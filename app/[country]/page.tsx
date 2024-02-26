@@ -3,6 +3,8 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { BsGlobe2 } from "react-icons/bs";
 import { BsShield } from "react-icons/bs";
 import { BsWifi } from "react-icons/bs";
+import { WiDayRain } from "react-icons/wi";
+import { BsClockFill } from "react-icons/bs";
 import Link from 'next/link'
 
 const citiesInCountry = async (countryName: string) => {
@@ -43,53 +45,61 @@ export default async function countryGuide({ params }: { params: { country: stri
             <div className="title">{data?.name}</div>
 
             <div className="section">
-
-                <figure className="image ">
-                    <img className="radius-large round-edges" src={data?.image} />
-                </figure>
-                <div className="level is-mobile">
-                    {/* 
-// @ts-ignore */}
-                    <div className="level-left" ><BsCurrencyDollar />{data?.cost}/mo</div>
-                    <div className="level-right" > <BsWifi /> Wifi: 98 m/b </div>
-                </div>
-            </div>
-            <div className="section">
-                {/* 
-// @ts-ignore */}
-                <p>  <BsGlobe2 /> Visa required: {data?.visa ? "Yes" : "No"}</p>
-                <p> <BsShield /> safety 4/5 </p>
-
-            </div>
-            <div className="section">
-                <h1 className="title"> great info about the country</h1>
-                <p>
-                    Megacity Tokyo fully engages the senses with its mix of modern bustle and traditional tranquility. But before jetting off to Kyoto or further afield, allow yourself to discover Kanto's hot spring resorts, unspoiled mountain gorges, pristine beaches, UNESCO World Heritage sites and cultural treasures. The diverse port city of Yokohama and the immersive nature of Gunma, Saitama and Ibaraki are right on Tokyo's doorstep. The volcanic Ogasawara Islands offer a subtropical getaway with endemic wildlife and clear water. Kanto's culinary options are as varied as the landscape—restaurants serving cuisine from every corner of the globe abound at every price point
-                </p>
-            </div>
-
-            <div className="section">
-                <div className='title'> country cities</div>
-                <div className="columns is-multiline">
-                    {/* 
-// @ts-ignore */}
-                    {cities?.map((city) => (
-                        <div className='column is-one-quarter'>
-                            <Link href={`/${country_name}/${city?.name}`} className="has-text-black">
-                                <div className='card'>
-                                    <div className='card-image'>
-                                        <img className='round-edges' src={city?.image} />
-                                    </div>
-                                    <div className="card-content is-overlay has-text-white has-text-weight-bold has-text-outline is-size-3">
-                                        {city?.name}
-                                    </div>
-                                </div>
-                            </Link>
+                <div className='card'>
+                    <div className='card-image'>
+                        <div className='card-image'>
+                            <img className="round-edges" src={data?.image} />
                         </div>
-                    ))
-                    }
+                        <div className="card-content is-overlay has-text-white has-text-weight-bold has-text-outline is-size-3">
+                        <div className='is-pulled-left'> <WiDayRain/> 80 F </div>
+                        <div className='is-pulled-right'> <BsClockFill/></div>
+                        </div>
+                    </div>
+                </div>
+                    <div className="level is-mobile">
+                        {/* 
+// @ts-ignore */}
+                        <div className="level-left" ><BsCurrencyDollar /><div className='has-text-weight-semibold'>{data?.cost}</div>/mo</div>
+                        <div className="level-right" > <BsWifi />   <div className='has-text-weight-semibold'>Wifi</div>: 98 m/b </div>
+                    </div>
+                </div>
+                <div className="section">
+                    {/* 
+// @ts-ignore */}
+                    <p>  <BsGlobe2 /> Visa required: {data?.visa ? "Yes" : "No"}</p>
+                    <p> <BsShield /> safety 4/5 </p>
+
+                </div>
+                <div className="section">
+                    <h1 className="title"> great info about the country</h1>
+                    <p>
+                        Megacity Tokyo fully engages the senses with its mix of modern bustle and traditional tranquility. But before jetting off to Kyoto or further afield, allow yourself to discover Kanto's hot spring resorts, unspoiled mountain gorges, pristine beaches, UNESCO World Heritage sites and cultural treasures. The diverse port city of Yokohama and the immersive nature of Gunma, Saitama and Ibaraki are right on Tokyo's doorstep. The volcanic Ogasawara Islands offer a subtropical getaway with endemic wildlife and clear water. Kanto's culinary options are as varied as the landscape—restaurants serving cuisine from every corner of the globe abound at every price point
+                    </p>
+                </div>
+
+                <div className="section">
+                    <div className='title'> country cities</div>
+                    <div className="columns is-multiline">
+                        {/* 
+// @ts-ignore */}
+                        {cities?.map((city) => (
+                            <div className='column is-one-quarter'>
+                                <Link href={`/${country_name}/${city?.name}`} className="has-text-black">
+                                    <div className='card'>
+                                        <div className='card-image'>
+                                            <img className='round-edges' src={city?.image} />
+                                        </div>
+                                        <div className="card-content is-overlay has-text-white has-text-weight-bold has-text-outline is-size-3">
+                                            {city?.name}
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+            
+            )
 }

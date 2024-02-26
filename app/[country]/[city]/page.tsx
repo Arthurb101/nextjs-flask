@@ -24,16 +24,15 @@ const citiesInCountry = async (countryName: string) => {
 };
 
 export default async function countryGuide({ params }: { params: { country: string, city: string } }) {
-    console.log({params})
+    console.log({ params })
     const cityName = decodeURI(params.city)
     const countryName = params.country
 
     const data = await citiesInCountry(countryName);
     let city = {}
     let country = {}
-    if( data != null)
-    {
-       
+    if (data != null) {
+
         {/* 
 // @ts-ignore */}
         city = data.city.find((city) => city.name === cityName);
@@ -47,7 +46,7 @@ export default async function countryGuide({ params }: { params: { country: stri
             {/* 
 // @ts-ignore */}
             <div className="title">{city?.name}</div>
-           
+
             <div className="section">
 
                 <figure className="image ">
@@ -58,16 +57,17 @@ export default async function countryGuide({ params }: { params: { country: stri
                 <div className="level is-mobile">
                     {/* 
 // @ts-ignore */}
-                <div className="level-left" ><BsCurrencyDollar />{city?.cost}/mo</div>
-                <div className="level-right" > <BsWifi /> Wifi: 98 m/b </div>
+                    <div className="level-left" ><BsCurrencyDollar /><div className='has-text-weight-semibold'>{city?.cost}</div>/mo</div>
+                    <div className="level-right" > <BsWifi />   <div className='has-text-weight-semibold'>Wifi</div>: 98 m/b </div>
                 </div>
             </div>
             <div className="section">
                 {/* 
 // @ts-ignore */}
-            <p>  <BsGlobe2 /> Visa required: {country?.visa ? "Yes" : "No"}</p>
-                <p> <BsShield /> safety 4/5 </p>
-            
+                
+                    <div>  <BsGlobe2 /> Visa required: {country?.visa ? "Yes" : "No"}</div>
+                    <div className='mt-3'> <BsShield /> safety 4/5 </div>
+                
             </div>
             <div className="section">
                 <h1 className="title"> great info about the country</h1>
