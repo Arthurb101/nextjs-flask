@@ -3,8 +3,7 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { BsGlobe2 } from "react-icons/bs";
 import { BsShield } from "react-icons/bs";
 import { BsWifi } from "react-icons/bs";
-import { WiDayRain } from "react-icons/wi";
-import { BsClockFill } from "react-icons/bs";
+import CountryPhoto from '../components/countryPhoto';
 import Link from 'next/link'
 
 const citiesInCountry = async (countryName: string) => {
@@ -45,20 +44,11 @@ export default async function countryGuide({ params }: { params: { country: stri
             <div className="title">{data?.name}</div>
 
             <div className="section">
-                <div className='card'>
-                    <div className='card-image'>
-                        <div className='card-image'>
-                            <img className="round-edges" src={data?.image} />
-                        </div>
-                        <div className="card-content is-overlay has-text-white has-text-weight-bold is-size-3">
-                            <div className='has-background-transparent-grey px-3 round-edges is-pulled-left'> <WiDayRain /> 80 F </div>
-                            <div className='has-background-transparent-grey px-3 round-edges is-pulled-right is-bottom' > <BsClockFill /> 8+</div>
-                        </div>
-                    </div>
-                </div>
-                <div className="level is-mobile">
-                    {/* 
+                 {/* 
 // @ts-ignore */}
+                <CountryPhoto image={data?.image} timeZone={"America/Los_Angeles"} />
+                <div className="level is-mobile">
+                   
                     <div className="level-left " ><BsCurrencyDollar /><div className='has-text-weight-semibold'>{data?.cost}</div>/mo</div>
                     <div className="level-right" > <BsWifi />   <div className='has-text-weight-semibold'>Wifi</div>: 98 m/b </div>
                 </div>
