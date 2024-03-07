@@ -28,4 +28,8 @@ model city {
   image      String
   country_id Int
   country    country @relation(fields: [country_id], references: [id])
+  daily_hi_temp Decimal
+  daily_low_temp Decimal
+  latitude Decimal
+  longitude Decimal
 }

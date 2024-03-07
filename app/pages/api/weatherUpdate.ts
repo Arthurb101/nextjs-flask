@@ -1,0 +1,50 @@
+import { NextRequest, NextResponse } from 'next/server'
+import prisma from '@/lib/prisma';
+import { kv } from '@vercel/kv'
+
+const fetch = require('node-fetch');
+
+async function updateCityTemperatures() {
+    try {
+      const cities = await prisma.city.findMany();
+      
+      for (const city of cities) {
+        const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        // Get the temperatures for the first day only
+        const maxTemp = data.daily.temperature_2m_max[0];
+        const minTemp = data.daily.temperature_2m_min[0];
+        
+        // Update city's temperatures in the database
+        const updatedCity = await prisma.city.update({
+          where: { id: city.id },
+          data: {
+            daily_hi_temp: maxTemp,
+            daily_low_temp: minTemp
+          }
+        });
+        
+        console.log(`Updated temperatures for city ${updatedCity.name}`);
+      }
+    } catch (error) {
+      console.error('Error updating city temperatures:', error);
+      throw error;
+    } finally {
+      await prisma.$disconnect();
+    }
+  }
+  
+
+export default async function handler() {
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit"
+
+    const cities = await updateCityTemperatures()
+    console.log(cities)
+    
+
+    return new NextResponse(JSON.stringify(response), {
+        status: 200,
+      })
+}
