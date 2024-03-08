@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import prisma from '@/lib/prisma';
-import { kv } from '@vercel/kv'
 
 const fetch = require('node-fetch');
 
@@ -21,6 +20,7 @@ async function updateCityTemperatures() {
         const updatedCity = await prisma.city.update({
           where: { id: city.id },
           data: {
+            // @ts-ignore
             daily_hi_temp: maxTemp,
             daily_low_temp: minTemp
           }
@@ -38,13 +38,13 @@ async function updateCityTemperatures() {
   
 
 export default async function handler() {
-    const url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit"
+    console.log("starting update")
 
-    const cities = await updateCityTemperatures()
-    console.log(cities)
+    await updateCityTemperatures()
+    console.log("ran cron job succesfully")
     
 
-    return new NextResponse(JSON.stringify(response), {
-        status: 200,
+    return NextResponse.json({
+        status: 200
       })
 }
